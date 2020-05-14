@@ -1,0 +1,17 @@
+{
+	"format_version": 2,
+	"header": {
+		"description": "Bubblegum Block and Item Behavior Pack",
+		"name": "bubblegumBP",
+		"uuid": "e12c5bb8-11a1-41ab-837f-5533595f3861",
+		"version": [ 0, 0, 3],
+        "min_engine_version": [ 1, 14, 0 ]
+	},
+	"modules": [
+		{
+			"type": "data",
+			"uuid": "ea24022a-4e50-488c-918b-a41c8a04fc19",
+			"version": [0, 0, 3]
+		}
+	]
+}

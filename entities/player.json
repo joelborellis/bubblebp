@@ -1,0 +1,297 @@
+{
+	"format_version": "1.14",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "minecraft:player",
+			"is_spawnable": false,
+			"is_summonable": false,
+			"is_experimental": false
+		},
+		"component_groups": {
+			"gtl:example_nothing_held": {
+				"minecraft:collision_box": {
+					"width": 0.6,
+					"height": 1.8
+				},
+				"minecraft:health": {
+					"value": 20,
+					"max": 20
+				},
+				"minecraft:movement": {
+					"value": 0.1
+				},
+				"minecraft:attack": {
+					"damage": 1
+				},
+				"minecraft:spell_effects": {
+					"remove_effects": [
+						"invisibility",
+						"jump_boost",
+						"slow_falling"
+					]
+				}
+			},
+			"gtl:bubbleweapon": {
+				"minecraft:health": {
+					"value": 22,
+					"max": 22
+				},
+				"minecraft:movement": {
+					"value": 0.1
+				},
+				"minecraft:attack": {
+					"damage": 3
+				},
+				"minecraft:spell_effects": {
+					"add_effects": [
+						{
+							"effect": "invisibility",
+							"duration": 99999,
+							"amplifier": 3,
+							"visible": 0,
+							"ambient": 0,
+							"display_on_screen_animation": true
+						}
+					]
+				}
+			},
+			"gtl:bubbletool": {
+				"minecraft:collision_box": {
+					"width": 1.2,
+					"height": 3.6
+				},
+				"minecraft:scale": {
+					"value": 2
+				},
+				"minecraft:break_blocks": {
+					"breakable_blocks": [
+						"minecraft:leaves",
+						"minecraft:leaves2"
+					]
+				},
+				"minecraft:attack": {
+					"damage": 1.5
+				},
+				"minecraft:spell_effects": {
+					"add_effects": [
+						{
+							"effect": "jump_boost",
+							"duration": 99999,
+							"amplifier": 6,
+							"visible": 0,
+							"ambient": 0
+						},
+						{
+							"effect": "slow_falling",
+							"duration": 99999,
+							"amplifier": 1,
+							"visible": 0,
+							"ambient": 0
+						}
+					]
+				}
+			},
+			"gtl:bubblehammer": {
+				"minecraft:break_blocks": {
+					"breakable_blocks": [
+						"gtl:bubblegum"
+					]
+				},
+				"minecraft:health": {
+					"value": 30,
+					"max": 30,
+					"min": 30
+				},
+				"minecraft:movement": {
+					"value": 0.2
+				}
+			}
+		},
+		"components": {
+			"minecraft:type_family": {
+				"family": [
+					"player"
+				]
+			},
+			"minecraft:loot": {
+				"table": "loot_tables/empty.json"
+			},
+			"minecraft:collision_box": {
+				"width": 0.6,
+				"height": 1.8
+			},
+			"minecraft:can_climb": {},
+			"minecraft:movement": {
+				"value": 0.1
+			},
+			"minecraft:environment_sensor": [
+				{
+					"on_environment": {
+						"filters": {
+							"any_of": [
+								{
+									"test": "is_family",
+									"subject": "self",
+									"value": "player"
+								}
+							]
+						},
+						"event": "gtl:refresh_player"
+					}
+				},
+				{
+					"on_environment": {
+						"filters": {
+							"all_of": [
+								{
+									"test": "has_equipment",
+									"subject": "self",
+									"domain": "hand",
+									"value": "gtl:bubbleweapon"
+								}
+							]
+						},
+						"event": "gtl:wielding_example_weapon"
+					}
+				},
+				{
+					"on_environment": {
+						"filters": {
+							"all_of": [
+								{
+									"test": "has_equipment",
+									"subject": "self",
+									"domain": "hand",
+									"value": "gtl:bubbletool"
+								}
+							]
+						},
+						"event": "gtl:wielding_example_tool"
+					}
+				},
+				{
+					"on_environment": {
+						"filters": {
+							"all_of": [
+								{
+									"test": "has_equipment",
+									"subject": "self",
+									"domain": "hand",
+									"value": "gtl:bubblehammer"
+								}
+							]
+						},
+						"event": "gtl:wielding_example_hammer"
+					}
+				}
+			],
+			"minecraft:player.saturation": {
+				"value": 20
+			},
+			"minecraft:player.exhaustion": {
+				"value": 0,
+				"max": 4
+			},
+			"minecraft:player.level": {
+				"value": 0,
+				"max": 24791
+			},
+			"minecraft:player.experience": {
+				"value": 0,
+				"max": 1
+			},
+			"minecraft:breathable": {
+				"totalSupply": 15,
+				"suffocateTime": -1,
+				"inhaleTime": 3.75,
+				"generatesBubbles": false
+			},
+			"minecraft:nameable": {
+				"alwaysShow": true,
+				"allowNameTagRenaming": false
+			},
+			"minecraft:physics": {},
+			"minecraft:insomnia": {
+				"days_until_insomnia": 3
+			},
+			"minecraft:rideable": {
+				"seat_count": 2,
+				"family_types": [
+					"parrot_tame"
+				],
+				"pull_in_entities": true,
+				"seats": [
+					{
+						"position": [
+							0.4,
+							-0.15,
+							0.04
+						],
+						"min_rider_count": 0,
+						"max_rider_count": 0,
+						"lock_rider_rotation": 0
+					},
+					{
+						"position": [
+							-0.4,
+							-0.15,
+							0.04
+						],
+						"min_rider_count": 1,
+						"max_rider_count": 2,
+						"lock_rider_rotation": 0
+					}
+				]
+			},
+			"minecraft:scaffolding_climber": {}
+		},
+		"events": {
+			"gtl:refresh_player": {
+				"add": {
+					"component_groups": [
+						"gtl:example_nothing_held"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"gtl:bubbleweapon",
+						"gtl:bubbletool",
+						"gtl:bubblehammer"
+					]
+				}
+			},
+			"gtl:wielding_example_weapon": {
+				"add": {
+					"component_groups": [
+						"gtl:bubbleweapon"
+					]
+				},
+				"remove": {}
+			},
+			"gtl:wielding_example_tool": {
+				"add": {
+					"component_groups": [
+						"gtl:bubbletool"
+					]
+				},
+				"remove": {}
+			},
+			"gtl:wielding_example_hammer": {
+				"add": {
+					"component_groups": [
+						"gtl:bubblehammer"
+					]
+				},
+				"remove": {}
+			},
+			"minecraft:entity_spawned": {
+				"add": {
+					"component_groups": [
+						"gtl:example_nothing_held"
+					]
+				},
+				"remove": {}
+			}
+		}
+	}
+}
