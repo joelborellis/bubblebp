@@ -1,0 +1,7 @@
+[
+  {
+    "flipbook_texture": "textures/blocks/bubblegum_ore",
+    "atlas_tile": "bubblegum_ore",
+    "ticks_per_frame": 32
+  }
+]

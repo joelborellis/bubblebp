@@ -1,0 +1,14 @@
+{
+  "format_version": "1.14",
+  "minecraft:item": {
+    "description": {
+      "identifier": "gtl:bubblehammer",
+      "category": "Equipment"
+    },
+
+    "components": {
+      "minecraft:icon": "bubblehammer",
+      "minecraft:render_offsets": "tools"
+    }
+  }
+}

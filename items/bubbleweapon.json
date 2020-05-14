@@ -1,0 +1,14 @@
+{
+  "format_version": "1.14",
+  "minecraft:item": {
+    "description": {
+      "identifier": "gtl:bubbleweapon",
+      "category": "Equipment"
+    },
+
+    "components": {
+      "minecraft:icon": "bubbleweapon",
+      "minecraft:render_offsets": "tools"
+    }
+  }
+}

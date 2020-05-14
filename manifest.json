@@ -1,0 +1,19 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "bubblegumRP",
+    "description": "Adds new bubblegum blocks and items to Minecraft",
+    "uuid": "5a6fee8e-bfed-4b02-8e74-75573abd37a4",
+    "platform_locked": false,
+    "version": [0, 0, 3],
+    "min_engine_version": [ 1, 14, 0]
+  },
+  "modules": [
+    {
+      "description": "Bubblegum Resource Pack by joel@gametolearn.com",
+      "type": "resources",
+      "uuid": "6c4086d3-e8b2-470e-89fb-fe1b5b7e5c8a",
+      "version": [0, 0, 3]
+    }
+  ]
+}

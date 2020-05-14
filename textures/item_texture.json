@@ -1,0 +1,26 @@
+{
+  "resource_pack_name": "vanilla",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "candycane":
+    {
+      "textures":"textures/items/candycane.png"
+    },
+    "bubbletool":
+    {
+      "textures":"textures/items/bubbletool.png"
+    },
+    "bubblehammer":
+    {
+      "textures":"textures/items/bubblehammer.png"
+    },
+    "bubbleweapon":
+    {
+      "textures":"textures/items/bubbleweapon.png"
+    },
+    "bubbleeffects":
+    {
+      "textures":"textures/items/bubbleeffects.png"
+    }
+  }
+}
