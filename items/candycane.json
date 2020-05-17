@@ -18,8 +18,14 @@
 						"chance": 1.0
 					},
 					{
-						"name": "night_vision",
-						"duration": 500,
+						"name": "speed",
+						"duration": 200,
+						"amplifier": 10,
+						"chance": 1.0
+					},
+					{
+						"name": "jumpboost",
+						"duration": 200,
 						"amplifier": 10,
 						"chance": 1.0
 					}

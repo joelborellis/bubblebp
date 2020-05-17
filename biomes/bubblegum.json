@@ -2,7 +2,7 @@
     "format_version": "1.14",
     "minecraft:biome": {
         "description": {
-            "identifier": "plains"
+            "identifier": "bubblegum"
         },
         "components": {
             "minecraft:climate": {
@@ -26,11 +26,11 @@
             "minecraft:world_generation_rules": {
                 "hills_transformation": [
                     [
-                        "forest_hills",
+                        "forest",
                         1
                     ],
                     [
-                        "forest",
+                        "forest_hills",
                         2
                     ]
                 ],

@@ -12,13 +12,13 @@
 				"nutrition": 4.5,
 				"effects": [
 					{
-						"name": "village_hero",
+						"name": "health_boost",
 						"duration": 500,
 						"amplifier": 127,
 						"chance": 1.0
 					},
 					{
-						"name": "night_vision",
+						"name": "resistance",
 						"duration": 500,
 						"amplifier": 10,
 						"chance": 1.0
