@@ -12,6 +12,12 @@
 			"type": "data",
 			"uuid": "ea24022a-4e50-488c-918b-a41c8a04fc19",
 			"version": [0, 0, 3]
-		}
+		},
+		{
+            "description": "Example client scripts module",
+            "type": "client_data",
+            "uuid": "28319d51-7c30-4caa-83d0-d675122d95f5",
+            "version": [0, 0, 3]
+        }
 	]
 }
