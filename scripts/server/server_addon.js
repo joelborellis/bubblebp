@@ -1,22 +1,22 @@
 var system = server.registerSystem(0,0);
 
-/*
+
 var TimerVars = {};
 TimerVars.timer = 0;
 TimerVars.timer_increase = 50;
 TimerVars.timer_starting = 600;
 TimerVars.time_between_waves = 80;
-*/
+
 
 var GameStateVars = {};
 GameStateVars.startSetup = false;
-/*
 GameStateVars.startGame = false;
-GameStateVars.startWave = false;
-GameStateVars.inWave = false;
+//GameStateVars.startWave = false;
+//GameStateVars.inWave = false;
 GameStateVars.inBetweenWaves = false;
-GameStateVars.endGame = false;
+//GameStateVars.endGame = false;
 
+/*
 var GameplayVars = {};
 GameplayVars.BaseY = 5;
 GameplayVars.BoundsX = 14;
@@ -36,14 +36,14 @@ var player;
 system.initialize = function() {
 
     // Tracks the amount of points that an enemy gives on death.
-    //this.registerComponent("MiniGameTest:EnemyPoints", { Points: 0 });
+    this.registerComponent("BubbleScripts:EnemyPoints", { Points: 0 });
     // Tracks Data on the player
     this.registerComponent("BubbleScripts:PlayerStats", { Score: 0, CurrentWave: 0, MaxWave: 7});
 
     this.listenForEvent("BubbleScripts:startSetup", (eventData) => this.onStartServerSetup(eventData));
-    //this.listenForEvent("minecraft:entity_death", (eventData) => this.onEntityDeath(eventData));
+    this.listenForEvent("minecraft:entity_death", (eventData) => this.onEntityDeath(eventData));
 
-    customQuery = this.registerQuery();
+    //customQuery = this.registerQuery();
 
 };
 
@@ -54,11 +54,13 @@ system.update = function () {
         this.SetUpGame();
     }
 
-    /*
+    
     // Game Start +++++++++++++++++++++++++++++++++++++++++++++++++++
     if (GameStateVars.startGame === true) {
         this.StartGame();
     }
+
+    /*
     // Wave Setup +++++++++++++++++++++++++++++++++++++++++++++++++++
     if (GameStateVars.startWave === true) {
         this.SetUpWave();
@@ -68,18 +70,18 @@ system.update = function () {
     if (GameStateVars.inWave === true) {
         this.Wave();
     }
+    */
 
     // Between Waves ++++++++++++++++++++++++++++++++++++++++++++++++
     if (GameStateVars.inBetweenWaves === true) {
         this.BetweenWaves();
     }
-    */
-
+    
 };
 
 system.SetUpGame = function () {
     let BroadcastEventData = this.createEventData("minecraft:display_chat_event");
-    BroadcastEventData.data.message = "Welcome to the Bubblegum World!";
+    BroadcastEventData.data.message = "Entering Bubblegum World";
     this.broadcastEvent("minecraft:display_chat_event", BroadcastEventData);
 
     /*
@@ -112,6 +114,7 @@ system.SetUpGame = function () {
 
     ExecuteEventData.data.command = "/tp @p 0 6 0";
     this.broadcastEvent("minecraft:execute_command", ExecuteEventData);
+*/
 
     // Spawn the start game chicken
     startGameChicken = this.createEntity("entity", "minecraft:chicken");
@@ -119,34 +122,34 @@ system.SetUpGame = function () {
     name.data.alwaysShow = true;
     name.data.name = "Kill me to Start";
     this.applyComponentChanges(startGameChicken, name);
-    */
 
     GameStateVars.startSetup = false;
 };
 
-/*
+
 system.StartGame = function () {
 
     // set the walls to air
-    let ExecuteEventData = this.createEventData("minecraft:execute_command");
-    ExecuteEventData.data.command = "/fill -3 5 -3 3 8 3 air";
-    this.broadcastEvent("minecraft:execute_command", ExecuteEventData);
+    //let ExecuteEventData = this.createEventData("minecraft:execute_command");
+    //ExecuteEventData.data.command = "/fill -3 5 -3 3 8 3 gtl:bubblegum";
+    //this.broadcastEvent("minecraft:execute_command", ExecuteEventData);
 
     // Drop the weapons and armor
-    this.createEntity("item_entity", "minecraft:iron_helmet");
-    this.createEntity("item_entity", "minecraft:iron_chestplate");
-    this.createEntity("item_entity", "minecraft:iron_leggings");
-    this.createEntity("item_entity", "minecraft:iron_boots");
+    this.createEntity("item_entity", "gtl:bubblegum_piece");
+    this.createEntity("item_entity", "gtl:gelatin");
+    
+    //this.createEntity("item_entity", "minecraft:iron_leggings");
+    //this.createEntity("item_entity", "minecraft:iron_boots");
 
-    this.createEntity("item_entity", "minecraft:iron_sword");
-    this.createEntity("item_entity", "minecraft:iron_axe");
-    this.createEntity("item_entity", "minecraft:trident");
+    //this.createEntity("item_entity", "minecraft:iron_sword");
+    //this.createEntity("item_entity", "minecraft:iron_axe");
+    //this.createEntity("item_entity", "minecraft:trident");
 
     GameStateVars.startGame = false;
     GameStateVars.inBetweenWaves = true;
 };
 
-
+/*
 system.SetUpWave = function () {
     let playerStats = this.getComponent(player, "MiniGameTest:PlayerStats");
 
@@ -213,19 +216,19 @@ system.Wave = function () {
         }
     }
 }
-
+*/
 system.BetweenWaves = function () {
     TimerVars.timer++;
 
     // End the time Between Waves
     if (TimerVars.timer === TimerVars.time_between_waves) {
-        let playerStats = this.getComponent(player, "MiniGameTest:PlayerStats");
+        let playerStats = this.getComponent(player, "BubbleScripts:PlayerStats");
         playerStats.data.CurrentWave++;
         this.applyComponentChanges(player, playerStats);
 
         TimerVars.timer = 0;
         GameStateVars.inBetweenWaves = false;
-        GameStateVars.startWave = true;
+        //GameStateVars.startWave = true;
     }
 };
 
@@ -240,9 +243,9 @@ system.onEntityDeath = function (eventData) {
     }
 
     // check the point value for the entity
-    let playerStats = this.getComponent(player, "MiniGameTest:PlayerStats");
-    if (this.hasComponent(eventData.data.entity, "MiniGameTest:EnemyPoints")) {
-        let enemyPoints = this.getComponent(eventData.data.entity, "MiniGameTest:EnemyPoints");
+    let playerStats = this.getComponent(player, "BubbleScripts:PlayerStats");
+    if (this.hasComponent(eventData.data.entity, "BubbleScripts:EnemyPoints")) {
+        let enemyPoints = this.getComponent(eventData.data.entity, "BubbleScripts:EnemyPoints");
         // give the player a score
         playerStats.data.Score += Number(enemyPoints.data.Points);
         this.applyComponentChanges(player, playerStats);
@@ -252,14 +255,14 @@ system.onEntityDeath = function (eventData) {
         this.broadcastEvent("minecraft:display_chat_event", BroadcastEventData);
     }
 };
-*/
+
 
 system.onStartServerSetup = function (eventData) {
     player = eventData.data.player;
     if (!this.hasComponent(player, "BubbleScripts:PlayerStats")) {
         let statscomponent = this.createComponent(player, "BubbleScripts:PlayerStats");
         statscomponent.data.Score = 0;
-        statscomponent.data.CurrentWave = 0;
+        statscomponent.data.CurrentWave = 1;
         this.applyComponentChanges(player, statscomponent);
     }
 
