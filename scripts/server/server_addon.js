@@ -1,4 +1,4 @@
-var system = server.registerSystem(0,0);
+var system = server.registerSystem(0, 0);
 
 
 var TimerVars = {};
@@ -29,18 +29,21 @@ var waveEntities = [];
 */
 
 var player;
-//var startGameChicken;
+var startGameChicken;
 
 //var customQuery = {};
 
-system.initialize = function() {
+system.initialize = function () {
 
     // Tracks the amount of points that an enemy gives on death.
     this.registerComponent("BubbleScripts:EnemyPoints", { Points: 0 });
     // Tracks Data on the player
-    this.registerComponent("BubbleScripts:PlayerStats", { Score: 0, CurrentWave: 0, MaxWave: 7});
+    this.registerComponent("BubbleScripts:PlayerStats", { Score: 0, CurrentWave: 0, MaxWave: 7 });
 
     this.listenForEvent("BubbleScripts:startSetup", (eventData) => this.onStartServerSetup(eventData));
+    this.listenForEvent("BubbleScripts:startSetupUI", (eventData) => this.onStartServerSetupUI(eventData));
+    
+    this.listenForEvent("minecraft:player_attacked_entity", (eventData) => this.onAttack(eventData));
     this.listenForEvent("minecraft:entity_death", (eventData) => this.onEntityDeath(eventData));
 
     //customQuery = this.registerQuery();
@@ -54,7 +57,7 @@ system.update = function () {
         this.SetUpGame();
     }
 
-    
+
     // Game Start +++++++++++++++++++++++++++++++++++++++++++++++++++
     if (GameStateVars.startGame === true) {
         this.StartGame();
@@ -76,7 +79,7 @@ system.update = function () {
     if (GameStateVars.inBetweenWaves === true) {
         this.BetweenWaves();
     }
-    
+
 };
 
 system.SetUpGame = function () {
@@ -137,7 +140,7 @@ system.StartGame = function () {
     // Drop the weapons and armor
     this.createEntity("item_entity", "gtl:bubblegum_piece");
     this.createEntity("item_entity", "gtl:gelatin");
-    
+
     //this.createEntity("item_entity", "minecraft:iron_leggings");
     //this.createEntity("item_entity", "minecraft:iron_boots");
 
@@ -267,4 +270,14 @@ system.onStartServerSetup = function (eventData) {
     }
 
     GameStateVars.startSetup = true;
+};
+
+system.onStartServerSetupUI = function (eventData) {
+    GameStateVars.startSetup = true;
+};
+
+system.onAttack = function (eventData) {
+    let BroadcastEventData = this.createEventData("minecraft:display_chat_event");
+    BroadcastEventData.data.message = "In the onAttack  " + eventData.data.attacked_entity.__identifier__;
+    this.broadcastEvent("minecraft:display_chat_event", BroadcastEventData);
 };
