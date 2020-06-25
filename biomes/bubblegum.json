@@ -2,7 +2,8 @@
     "format_version": "1.14",
     "minecraft:biome": {
         "description": {
-            "identifier": "bubblegum"
+            "identifier": "bubblegum",
+            "register_to_creative_menu": true
         },
         "components": {
             "minecraft:climate": {
