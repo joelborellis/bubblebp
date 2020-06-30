@@ -6,30 +6,16 @@
             "is_experimental": false
         },
         "components": {
-            "minecraft:loot": {
-                "table": "loot_tables/blocks/bubblegum.json"
-            },
-            "minecraft:destroy_time": {
-                "value": 99999.0
-            },
-            "minecraft:explosion_resistance": {
-                "value": 99999
-            },
-            "minecraft:friction": {
-                "value": 0.9
-            },
+            "minecraft:loot": "loot_tables/bubblegum.json",
+            "minecraft:map_color": "#c46340",
+            "minecraft:block_light_absorption": 15,
+            "minecraft:block_light_emission": 1,
+            "minecraft:explosion_resistance": 10,
+            "minecraft:destroy_time": 1.25,
+            "minecraft:friction": 0.6,
             "minecraft:flammable": {
                 "flame_odds": 0,
                 "burn_odds": 0
-            },
-            "minecraft:map_color": {
-                "color": "#FFFFFF"
-            },
-            "minecraft:block_light_absorption": {
-                "value": 0
-            },
-            "minecraft:block_light_emission": {
-                "emission": 0.250
             }
         }
     }
