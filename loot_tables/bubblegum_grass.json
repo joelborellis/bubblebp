@@ -5,7 +5,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "gtl:bubblegum",
+          "name": "gtl:bubblegum_grass",
           "weight": 1,
           "functions": [
             {
@@ -29,7 +29,7 @@
         },
         {
           "type": "item",
-          "name": "minecraft:sugar",
+          "name": "gtl:gelatin",
           "weight": 1
         }
       ]

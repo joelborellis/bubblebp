@@ -40,7 +40,7 @@ system.initialize = function () {
     // Tracks Data on the player
     this.registerComponent("BubbleScripts:PlayerStats", { Score: 0, CurrentWave: 0, MaxWave: 7 });
 
-    this.listenForEvent("BubbleScripts:startSetup", (eventData) => this.onStartServerSetup(eventData));
+    //this.listenForEvent("BubbleScripts:startSetup", (eventData) => this.onStartServerSetup(eventData));
     this.listenForEvent("BubbleScripts:startSetupUI", (eventData) => this.onStartServerSetupUI(eventData));
     
     this.listenForEvent("minecraft:player_attacked_entity", (eventData) => this.onAttack(eventData));
@@ -259,7 +259,7 @@ system.onEntityDeath = function (eventData) {
     }
 };
 
-
+/*
 system.onStartServerSetup = function (eventData) {
     player = eventData.data.player;
     if (!this.hasComponent(player, "BubbleScripts:PlayerStats")) {
@@ -271,10 +271,17 @@ system.onStartServerSetup = function (eventData) {
 
     GameStateVars.startSetup = true;
 };
+*/
 
 system.onStartServerSetupUI = function (eventData) {
+
+    let BroadcastEventData = this.createEventData("minecraft:display_chat_event");
+    BroadcastEventData.data.message = "Entering Bubblegum World";
+    this.broadcastEvent("minecraft:display_chat_event", BroadcastEventData);
+
     GameStateVars.startSetup = true;
 };
+
 
 system.onAttack = function (eventData) {
     let BroadcastEventData = this.createEventData("minecraft:display_chat_event");

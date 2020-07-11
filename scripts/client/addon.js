@@ -2,7 +2,7 @@ var system = client.registerSystem(0,0);
 
 system.initialize = function() {
     this.listenForEvent("minecraft:client_entered_world", (eventData) => this.onStartSetup(eventData)); 
-    this.registerEventData("BubbleScripts:startSetup", {});
+    this.registerEventData("BubbleScripts:startSetupUI", {});
 
     // Setup callback for UI events from the custom screens
     this.listenForEvent("minecraft:ui_event", (eventData) => this.onUIMessage(eventData));
@@ -55,6 +55,6 @@ system.startGame = function () {
 
     // Tell the server to start the game   
     // Notify the server script that the player has finished loading in.
-    let clientEnteredEventData = this.createEventData("BubbleScripts:startSetupUI");
-	aClientSystem.broadcastEvent("BubbleScripts:startSetupUI", clientEnteredEventData);
+    let startEventData = this.createEventData("BubbleScripts:startSetupUI");
+	this.broadcastEvent("BubbleScripts:startSetupUI", startEventData);
 };

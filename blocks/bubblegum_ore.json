@@ -3,6 +3,7 @@
     "minecraft:block": {
         "description": {
             "identifier": "gtl:bubblegum_ore",
+            "register_to_creative_menu": true,
             "is_experimental": false
         },
         "components": {

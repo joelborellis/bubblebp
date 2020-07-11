@@ -3,21 +3,27 @@
 	"header": {
 		"description": "Bubblegum Block and Item Behavior Pack",
 		"name": "Bubblegum Behavior Pack",
-		"uuid": "e12c5bb8-11a1-41ab-837f-5533595f3861",
-		"version": [ 0, 0, 3],
-        "min_engine_version": [ 1, 14, 0 ]
+		"uuid": "191d59df-5ab1-49d0-aeaa-a5697a76d9e2",
+		"version": [ 0, 0, 1],
+        "min_engine_version": [ 1, 16, 0 ]
 	},
 	"modules": [
 		{
 			"type": "data",
-			"uuid": "ea24022a-4e50-488c-918b-a41c8a04fc19",
-			"version": [0, 0, 3]
+			"uuid": "8b18fa41-3597-467c-8c59-12b5b20ac8e5",
+			"version": [0, 0, 1]
 		},
 		{
             "description": "Example client scripts module",
             "type": "client_data",
-            "uuid": "28319d51-7c30-4caa-83d0-d675122d95f5",
-            "version": [0, 0, 3]
+            "uuid": "6e32e20f-c3c8-4263-bdee-254f65ef3a4f",
+            "version": [0, 0, 1]
         }
-	]
+	],
+	"dependencies": [
+        {
+            "uuid": "f60f3b5a-889f-44db-be77-0af467db3f8a",
+            "version": [0, 0, 1]
+        }
+    ]
 }
