@@ -40,8 +40,11 @@ system.initialize = function () {
     // Tracks Data on the player
     this.registerComponent("BubbleScripts:PlayerStats", { Score: 0, CurrentWave: 0, MaxWave: 7 });
 
-    //this.listenForEvent("BubbleScripts:startSetup", (eventData) => this.onStartServerSetup(eventData));
-    this.listenForEvent("BubbleScripts:startSetupUI", (eventData) => this.onStartServerSetupUI(eventData));
+    this.listenForEvent("BubbleScripts:startSetup", (eventData) => this.onStartServerSetup(eventData));
+    //this.listenForEvent("BubbleScript:loadPlayerData", (eventData) => this.onLoadPlayerData(eventData));
+
+    // Setup callback for the ability button click event from the client script.
+    this.listenForEvent("BubbleScripts:setupChoicesSelected", choicesSelected => this.onChoicesSelected(choicesSelected));
     
     this.listenForEvent("minecraft:player_attacked_entity", (eventData) => this.onAttack(eventData));
     this.listenForEvent("minecraft:entity_death", (eventData) => this.onEntityDeath(eventData));
@@ -56,7 +59,6 @@ system.update = function () {
     if (GameStateVars.startSetup === true) {
         this.SetUpGame();
     }
-
 
     // Game Start +++++++++++++++++++++++++++++++++++++++++++++++++++
     if (GameStateVars.startGame === true) {
@@ -73,34 +75,36 @@ system.update = function () {
     if (GameStateVars.inWave === true) {
         this.Wave();
     }
-    */
+    
 
     // Between Waves ++++++++++++++++++++++++++++++++++++++++++++++++
     if (GameStateVars.inBetweenWaves === true) {
         this.BetweenWaves();
     }
+    */
+};
 
+system.onStartServerSetup = function (eventData) {
+
+    let StartupEventData = this.createEventData("minecraft:display_chat_event");
+    StartupEventData.data.message = "Entering World";
+    this.broadcastEvent("minecraft:display_chat_event", StartupEventData);
+
+    GameStateVars.startSetup = true;
 };
 
 system.SetUpGame = function () {
-    let BroadcastEventData = this.createEventData("minecraft:display_chat_event");
-    BroadcastEventData.data.message = "Entering Bubblegum World";
-    this.broadcastEvent("minecraft:display_chat_event", BroadcastEventData);
 
-    /*
-    // clear all other entities
-    let customEntities = this.getEntitiesFromQuery(customQuery);
-    let size = customEntities.length;
-    for (let index = 0; index < size; ++index) {
-        if (customEntities[index].id !== player.id) {
-            this.destroyEntity(customEntities[index]);
-        }
-    }
+    let SetupEventData = this.createEventData("minecraft:display_chat_event");
+    SetupEventData.data.message = "Setting up";
+    this.broadcastEvent("minecraft:display_chat_event", SetupEventData);
+
     // Make it day
     let ExecuteEventData = this.createEventData("minecraft:execute_command");
     ExecuteEventData.data.command = "/time set day";
     this.broadcastEvent("minecraft:execute_command", ExecuteEventData);
 
+    /*
     // Build a roof to prevent mobs from catching on fire. 
     ExecuteEventData.data.command = "/fill 16 100 16 -16 100 -16 obsidian";
     this.broadcastEvent("minecraft:execute_command", ExecuteEventData);
@@ -127,6 +131,8 @@ system.SetUpGame = function () {
     this.applyComponentChanges(startGameChicken, name);
 
     GameStateVars.startSetup = false;
+    //GameStateVars.startGame = true;
+
 };
 
 
@@ -149,7 +155,7 @@ system.StartGame = function () {
     //this.createEntity("item_entity", "minecraft:trident");
 
     GameStateVars.startGame = false;
-    GameStateVars.inBetweenWaves = true;
+    //GameStateVars.inBetweenWaves = true;
 };
 
 /*
@@ -219,7 +225,7 @@ system.Wave = function () {
         }
     }
 }
-*/
+
 system.BetweenWaves = function () {
     TimerVars.timer++;
 
@@ -234,6 +240,7 @@ system.BetweenWaves = function () {
         //GameStateVars.startWave = true;
     }
 };
+*/
 
 system.onEntityDeath = function (eventData) {
     // check for the start chicken
@@ -244,7 +251,8 @@ system.onEntityDeath = function (eventData) {
             return;
         }
     }
-
+    
+    /*
     // check the point value for the entity
     let playerStats = this.getComponent(player, "BubbleScripts:PlayerStats");
     if (this.hasComponent(eventData.data.entity, "BubbleScripts:EnemyPoints")) {
@@ -253,15 +261,64 @@ system.onEntityDeath = function (eventData) {
         playerStats.data.Score += Number(enemyPoints.data.Points);
         this.applyComponentChanges(player, playerStats);
         // display the score
-        let BroadcastEventData = this.createEventData("minecraft:display_chat_event");
-        BroadcastEventData.data.message = "Current Score: " + playerStats.data.Score;
-        this.broadcastEvent("minecraft:display_chat_event", BroadcastEventData);
+        let PlayerEventData = this.createEventData("minecraft:display_chat_event");
+        PlayerEventData.data.message = "Current Score: " + playerStats.data.Score;
+        this.broadcastEvent("minecraft:display_chat_event", PlayerEventData);
     }
+    */
+};
+
+system.onAttack = function (eventData) {
+    
+    // Get the players inventory
+    let playerInventory = this.getComponent(eventData.data.player, "minecraft:inventory_container");
+    // Get the item at the second slot in the inventory
+    let secondItemSlot = playerInventory.data[2];
+    // Destroy the attacked entity if the player has an apple in their third item slot
+    //if (secondItemSlot.item == "gtl:gelatin") {
+        //system.destroyEntity(eventData.data.attacked_entity);
+    //}
+
+    let AttackEventData = this.createEventData("minecraft:display_chat_event");
+    AttackEventData.data.message = "In the onAttack  " + eventData.data.attacked_entity.__identifier__ + " Inventory second slot - " + secondItemSlot.item;
+    this.broadcastEvent("minecraft:display_chat_event", AttackEventData);
+
+};
+
+// Handle the ability button clicked event from the client script. 
+system.onChoicesSelected = function (eventData) {
+    let choicesSelected = eventData.data.choicesSelected;
+
+    let ChoicesEventData = this.createEventData("minecraft:display_chat_event");
+    ChoicesEventData.data.message = "Choices made";
+    this.broadcastEvent("minecraft:display_chat_event", ChoicesEventData);
+    
+    /*
+    // Set what ability was selected based on what the client script sent us
+    if (abilityClicked === "damageSingleTargetAbilityClicked") {
+        globalVars.abilitySelected = AbilityType.damageSingleTarget;
+    }
+    else if (abilityClicked === "damageWholeTeamAbilityClicked") {
+        globalVars.abilitySelected = AbilityType.damageWholeTeam;
+    }
+    else if (abilityClicked === "healSingleTargetAbilityClicked") {
+        globalVars.abilitySelected = AbilityType.healSingleTarget;
+    }
+    else {
+        globalVars.abilitySelected = AbilityType.none;
+    }*/
 };
 
 /*
-system.onStartServerSetup = function (eventData) {
+system.onLoadPlayerData = function (eventData) {
+
     player = eventData.data.player;
+
+    let PlayerEventData = this.createEventData("minecraft:display_chat_event");
+    PlayerEventData.data.message = "Player ID - " + player;
+    this.broadcastEvent("minecraft:display_chat_event", PlayerEventData);
+
+
     if (!this.hasComponent(player, "BubbleScripts:PlayerStats")) {
         let statscomponent = this.createComponent(player, "BubbleScripts:PlayerStats");
         statscomponent.data.Score = 0;
@@ -269,22 +326,5 @@ system.onStartServerSetup = function (eventData) {
         this.applyComponentChanges(player, statscomponent);
     }
 
-    GameStateVars.startSetup = true;
-};
+}
 */
-
-system.onStartServerSetupUI = function (eventData) {
-
-    let BroadcastEventData = this.createEventData("minecraft:display_chat_event");
-    BroadcastEventData.data.message = "Entering Bubblegum World";
-    this.broadcastEvent("minecraft:display_chat_event", BroadcastEventData);
-
-    GameStateVars.startSetup = true;
-};
-
-
-system.onAttack = function (eventData) {
-    let BroadcastEventData = this.createEventData("minecraft:display_chat_event");
-    BroadcastEventData.data.message = "In the onAttack  " + eventData.data.attacked_entity.__identifier__;
-    this.broadcastEvent("minecraft:display_chat_event", BroadcastEventData);
-};
