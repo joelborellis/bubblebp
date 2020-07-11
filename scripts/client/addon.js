@@ -26,7 +26,7 @@ system.onClientEnteredWorld = function(eventData) {
     */
 
     let loadEventData = this.createEventData("minecraft:load_ui");
-    loadEventData.data.path = "rpg_game.html";
+    loadEventData.data.path = "bubble_start.html";
     loadEventData.data.options.is_showing_menu = true;
     loadEventData.data.options.absorbs_input = true;
     this.broadcastEvent("minecraft:load_ui", loadEventData); 
@@ -43,7 +43,7 @@ system.onUIMessage = function (eventDataObject) {
     if (eventData === "damageSingleTargetAbilityClicked" ||
         eventData === "damageWholeTeamAbilityClicked" ||
         eventData === "healSingleTargetAbilityClicked") {
-        // An ability button was clicked. Send an ability clicked event to the server script
+        // An ability button was clicked. Send the setup choices event to the server script
         let setupData = this.createEventData("BubbleScripts:setupChoicesSelected");
         setupData.data.setup_choices = eventData;
         this.broadcastEvent("BubbleScripts:setupChoicesSelected", setupData);

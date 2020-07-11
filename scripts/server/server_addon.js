@@ -138,14 +138,14 @@ system.SetUpGame = function () {
 
 system.StartGame = function () {
 
-    // set the walls to air
-    //let ExecuteEventData = this.createEventData("minecraft:execute_command");
-    //ExecuteEventData.data.command = "/fill -3 5 -3 3 8 3 gtl:bubblegum";
-    //this.broadcastEvent("minecraft:execute_command", ExecuteEventData);
+    // give some blocks to inventory using functions
+    let ExecuteEventData = this.createEventData("minecraft:execute_command");
+    ExecuteEventData.data.command = "/function give_blocks";
+    this.broadcastEvent("minecraft:execute_command", ExecuteEventData);
 
-    // Drop the weapons and armor
-    this.createEntity("item_entity", "gtl:bubblegum_piece");
-    this.createEntity("item_entity", "gtl:gelatin");
+    // Add some items
+    //this.createEntity("item_entity", "gtl:bubblegum_piece");
+    //this.createEntity("item_entity", "gtl:gelatin");
 
     //this.createEntity("item_entity", "minecraft:iron_leggings");
     //this.createEntity("item_entity", "minecraft:iron_boots");
@@ -287,10 +287,10 @@ system.onAttack = function (eventData) {
 
 // Handle the ability button clicked event from the client script. 
 system.onChoicesSelected = function (eventData) {
-    let choicesSelected = eventData.data.choicesSelected;
+    let choicesSelected = eventData.data.setup_choices;
 
     let ChoicesEventData = this.createEventData("minecraft:display_chat_event");
-    ChoicesEventData.data.message = "Choices made";
+    ChoicesEventData.data.message = "Choices made  - " + choicesSelected;
     this.broadcastEvent("minecraft:display_chat_event", ChoicesEventData);
     
     /*
